@@ -1,5 +1,6 @@
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class ShopService {
             }
         }
         totalOrders++;
-        Order newOrder = new Order(String.valueOf(totalOrders), products,OrderStatus.PROCESSING);
+        Order newOrder = new Order(String.valueOf(totalOrders), products,OrderStatus.PROCESSING, LocalDateTime.now());
         return orderRepo.addOrder(newOrder);
     }
 

@@ -28,4 +28,8 @@ public class ShopService {
                 .filter(order -> order.orderStatus().equals(orderStatus))
                 .collect(Collectors.toList());
     }
+
+    public ProductRepo getProductRepo() {
+        return productRepo;
+    }
 }

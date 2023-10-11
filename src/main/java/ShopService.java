@@ -1,9 +1,12 @@
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Data
 public class ShopService {
     private ProductRepo productRepo = new ProductRepo();
     private OrderRepo orderRepo = new OrderMapRepo();
@@ -26,9 +29,5 @@ public class ShopService {
          return orderRepo.getOrders().stream()
                 .filter(order -> order.orderStatus().equals(orderStatus))
                 .collect(Collectors.toList());
-    }
-
-    public ProductRepo getProductRepo() {
-        return productRepo;
     }
 }

@@ -30,4 +30,15 @@ public class ShopService {
                 .filter(order -> order.orderStatus().equals(orderStatus))
                 .collect(Collectors.toList());
     }
+
+    public void updateOrder(String orderId, OrderStatus orderStatus) {
+        if(orderRepo.getOrderById(orderId).orderStatus() == orderStatus) {
+            return;
+        }
+    }
+
+    /*public void updateOrder(String orderId, OrderStatus orderStatus) {
+        System.out.println(orderStatus);
+        System.out.println(orderRepo.getOrderById(orderId));
+    }*/
 }

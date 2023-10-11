@@ -34,4 +34,28 @@ class ShopServiceTest {
         //THEN
         assertNull(actual);
     }
+
+    @Test
+    void updateOrder_ifStatusIsEqualToOrderStatus_orderStatusIsTheSame() {
+        //GIVEN
+        ShopService service = new ShopService();
+        service.getOrderRepo().addOrder(new Order("1",List.of(new Product("p1","iPhone")),OrderStatus.PROCESSING));
+
+        Order actual = new Order("1",List.of(new Product("p1","iPhone")),OrderStatus.PROCESSING);
+        service.updateOrder("1", OrderStatus.PROCESSING);
+        Order expect = new Order("1",List.of(new Product("p1","iPhone")),OrderStatus.PROCESSING);
+        assertEquals(actual,expect);
+    }
+
+    @Test
+    void updateOrder_ifStatusIsNotEqualToOrderStatus_changeOrderStatusToNewStatus() {
+        //GIVEN
+        ShopService service = new ShopService();
+        service.getOrderRepo().addOrder(new Order("1",List.of(new Product("p1","iPhone")),OrderStatus.PROCESSING));
+
+        Order actual = new Order("1",List.of(new Product("p1","iPhone")),OrderStatus.PROCESSING);
+        service.updateOrder("1", OrderStatus.IN_DELIVERY);
+        Order expect = new Order("1",List.of(new Product("p1","iPhone")),OrderStatus.IN_DELIVERY);
+        assertEquals(actual,expect);
+    }
 }

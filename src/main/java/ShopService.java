@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class ShopService {
     private ProductRepo productRepo = new ProductRepo();
     private OrderRepo orderRepo = new OrderMapRepo();
+    private int totalOrders = 0;
 
     public Order addOrder(List<String> productIds) {
         List<Product> products = new ArrayList<>();
@@ -21,7 +22,8 @@ public class ShopService {
                 throw new RuntimeException("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
             }
         }
-        Order newOrder = new Order(UUID.randomUUID().toString(), products,OrderStatus.PROCESSING);
+        totalOrders++;
+        Order newOrder = new Order(String.valueOf(totalOrders), products,OrderStatus.PROCESSING);
         return orderRepo.addOrder(newOrder);
     }
 
@@ -34,11 +36,11 @@ public class ShopService {
     public void updateOrder(String orderId, OrderStatus orderStatus) {
         if(orderRepo.getOrderById(orderId).orderStatus() == orderStatus) {
             return;
+        } else {
+            Order newOrder = orderRepo.getOrderById(orderId).withOrderStatus(orderStatus);
+            orderRepo.removeOrder(orderId);
+            orderRepo.addOrder(newOrder);
         }
-    }
 
-    /*public void updateOrder(String orderId, OrderStatus orderStatus) {
-        System.out.println(orderStatus);
-        System.out.println(orderRepo.getOrderById(orderId));
-    }*/
+    }
 }

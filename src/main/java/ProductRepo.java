@@ -6,7 +6,6 @@ public class ProductRepo {
 
     public ProductRepo() {
         products = new ArrayList<>();
-        products.add(new Product("1", "Apfel"));
     }
 
     public List<Product> getProducts() {
@@ -34,5 +33,12 @@ public class ProductRepo {
                return;
            }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ProductRepo{" +
+                "products=" + products +
+                '}';
     }
 }

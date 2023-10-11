@@ -1,17 +1,18 @@
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
+@AllArgsConstructor
 public class ShopService {
-    private ProductRepo productRepo = new ProductRepo();
-    private OrderRepo orderRepo = new OrderMapRepo();
-    private int totalOrders = 0;
+    private ProductRepo productRepo;
+    private OrderRepo orderRepo;
+    private int totalOrders;
 
     public Order addOrder(List<String> productIds) {
         List<Product> products = new ArrayList<>();
